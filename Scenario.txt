@@ -1,0 +1,6 @@
+Scenario:
+Using the dataset provided, prepare a presentation to report summary information and generate insights about the real estate rental market in Saudi Arabia major cities (EDA).
+Example of important information to include (suggestions, not requirements): The majority of type of units in each city, Average price per district, Relationship between Price and features.
+What type of rental units have the highest rent value.
+ And any other information you might find interesting from your dataset.
+Your presentation and report should help officials from the Ministry of Housing understand the current rental landscape for the average consumer (families and singles) in each city.
