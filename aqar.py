@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import seaborn as sns
+import dataprep.eda as dp
 
 ### Read and clean data
 #%%
@@ -11,6 +12,10 @@ df.info()
 
 #%%
 df
+
+#%% Create dataprep report
+report = dp.create_report(df)
+report.save('report.html')
 
 #%% Check for missing values
 df.isnull().sum()
@@ -49,7 +54,7 @@ df.groupby('city')["price"].mean()
 
 #%%
 df.groupby('city')['price'].describe()
-#%% 
+#%%
 df.sample(5)
 
 #%% Do we have outliers in the dataset?
@@ -69,3 +74,6 @@ sns.boxplot(df[df["city"] == "الرياض"], x= "city", y= "size")
 #%% Relationship between Price and features
 
 #%% What type of rental units have the highest rent value.
+
+#%% Compare mean price of properties with all featers per city
+df[(df["garage"] == 1) & (df["elevator"] == 1) & (df["pool"] == 1)   & (df["basement"] == 1) & (df["frontyard"] ==  1) & (df["ac"] == 1)].groupby('city')['price'].mean()
