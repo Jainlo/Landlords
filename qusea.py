@@ -72,4 +72,5 @@ df = df[df['price'] != df['size']]
 uniqueAge = list(df['property_age'].unique())
 uniqueAge.sort()
 uniqueAge
-# %%
+#%% Check for properties with an elevator in each city
+df[df['elevator'] == 1].groupby('city')['elevator'].count()
