@@ -15,7 +15,7 @@ from geopy.extra.rate_limiter import RateLimiter
 import folium
 from folium.plugins import FastMarkerCluster
 #%%
-df = pd.read_csv("../misk_skills/Assighnment/SA_Aqar.csv")
+df = pd.read_csv("SA_Aqar.csv")
 df.info()
 #%% Check for missing values
 df.isnull().sum()
