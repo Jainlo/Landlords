@@ -20,11 +20,12 @@ from dataprep.eda import create_report
 
 
 #%%Run and clean the data
-dataCleaning.clean()
+df = pd.read_csv('SA_Aqar.csv')
+dataCleaning.clean(df)
 
 ######------DATA EXPLORATION------######
 #%% general information
-df.head()
+df.info()
 
 #%% Column names
 df.columns
@@ -38,23 +39,20 @@ create_report(df)
 # All rentals that start at 2K and end at 20K are monthly
 # Anything beyond that will be divided by 12
 # Anything less will be dropped
+#------
 prices = sorted(set(df['price']))
-# Starts at 1K
+# Original data starts at 1K
 # Ends at 1.7M
-for i in prices:
-       if i < 2000:
-              print("Delete less than 2K")
-              # df = df[df['price'] > 2000]
-       elif i < 20000:
-              print("20K monthly")
-              # do nothing
-       else:
-              print("divde by 12")
-              # divide
 
+# discard anything less than 2K
+df = df[df['price'] > 2000] 
+# Divide prices over 20K by 12
 #%%
-df2 = df[df['price'] > 2000]
-df2 = df[df['price'] < 20000]
+df2['price'] = np.where(df2['price'] > 20000, df2['price']/12, df2['price'])
+# round up
+sorted(set(df2['price']))
+
+
 
 #%% Interesting variables
 # Price vs
@@ -153,16 +151,6 @@ sns.despine(left=True, bottom=True)
 
 # %%
 # How many have a pool
-df.groupby('city')['الرياض'].sum()
+df.groupby('city').sum()
 # How many houses in each city
 df.groupby('city').count()
-
-
-# %%
-arr = [“حي العارض“,”حي النرجس“]
-district = riyadh[“district”]
-for i in district:
-    for j in arr:
-        if i == j:
-            print("True")
-
