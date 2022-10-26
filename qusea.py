@@ -14,7 +14,7 @@ from dataCleaning import clean
 df = pd.read_csv("SA_Aqar.csv")
 
 #%%
-df.info()
+df#.info()
 
 
 #%%

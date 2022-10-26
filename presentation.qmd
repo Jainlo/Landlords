@@ -1,0 +1,36 @@
+---
+title: "Aqar Real Estate Analysis"
+author: "Lujain, Athbah, Jeza, and Qusea"
+format: revealjs
+kernal: python3
+---
+
+## Introduction
+
+In this project we studied the real estate rental market of the four major cities in Saudi Arabia: Jeddah, Riyadh, Alkhobar and Dammam. We explored the relationships of prices with other features. The dataset used is found on kaggle <a href = "https://www.kaggle.com/datasets/lama122/saudi-arabia-real-estate-aqar">Saudi Arabia Real Estate (AQAR) dataset</a> It was collected and scrapped from <a href ="https://sa.aqar.fm">Aqar.fm</a>
+
+## Data Cleaning
+
+We started by the format of our data and checking which columns had missing values.
+
+  * We dropped the detail column because it was the only one with missing values
+
+    * It was also full of unstructured and inconsistent
+
+  * We trimmed the whitespace from all the column names and rows
+
+  * We removed duplicate 2207 rows
+
+  * Removed the rows that have the same value in price and size
+
+  * Removed irrelevant values from the front columns
+
+  * Remove values with a size < 100
+
+  * Price periods are not consistent, we made an assumption that they are monthly
+
+    * Discard anything less than 2K
+
+    * Anything beyond 20K is yearly and will be divided by 12
+
+## EDA

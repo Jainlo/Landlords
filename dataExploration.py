@@ -9,43 +9,13 @@ import seaborn as sns
 import arabic_reshaper
 from bidi.algorithm import get_display
 
+from dataCleaning import clean
+
 #%%
 # Upload and clean the data
 df = pd.read_csv("../misk_skills/Assighnment/SA_Aqar.csv")
 #%% Reading the data
-def clean(df: pd.DataFrame):
 
-# 2. Details column has missing data and is made up of unstructured data
-# We can drop it
- df.drop('details', axis=1, inplace=True)
-
-# 3. Do we have any duplicates?
-# First clean whitespace to be able to compare values
-df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
-# Clean column names as well
-df.columns = df.columns.str.strip()
-
-# Remove duplicates
-df = df[~df.duplicated()]
-
-#%% Remove the rows that have the same value in price and size
-df = df[df['price'] != df['size']]
-
-#%% Remove fronts that are equal to '3 شوارع'
-df = df[df['front'] != '3 شوارع']
-
-#%% Remove fronts that are equal to '4 شوارع'
-df = df[df['front'] != '4 شوارع']
-
-#%% Remove values with a size < 100
-df = df[df['size'] > 100]
-#%%
-# remove the spaces in the columns names
-df.columns = df.columns.str.strip()
-#%%
-# remove the spaces in the columns values
-df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)   
-#%%
 clean(df)
 # %%
 # A function to plot arabic labels
@@ -172,7 +142,7 @@ ax2.set_ylabel("Count")
 ax3.set_ylabel("Count")
 ax4.set_ylabel("Count");
 #%%
-# Investigating prices with and without some features 
+# Investigating prices with and without some features
 # driver_room`
 sns.set_theme()
 fig, ((ax1,ax2), (ax3,ax4)) = plt.subplots(2,2, figsize=(15,10))
