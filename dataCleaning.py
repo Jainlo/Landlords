@@ -25,6 +25,9 @@ def clean(df):
 
     #%% Remove fronts that are equal to '3 شوارع'
     df = df[df['front'] != '3 شوارع']
-    
+
     #%% Remove fronts that are equal to '4 شوارع'
     df = df[df['front'] != '4 شوارع']
+
+    #%% Remove values with a size < 100
+    df = df[df['size'] > 100]
