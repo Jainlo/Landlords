@@ -150,13 +150,14 @@ df[(df['elevator'] == 1) & (df['stairs'] == 0)]
 # 25 properties
 
 #%% export list of unique values in district by city
-districts = df.groupby("city")["district"].unique()
-with open("districts.txt", "w") as f:
-    for city, districts in districts.items():
-        f.write(city + "\n")
-        for district in districts:
-            f.write(district + "\n")
-        f.write("\n\n")
+districts = df.groupby("city")["district"].value_counts()
+districts.to_csv("districts.csv")
+# with open("districts.txt", "w") as f:
+#     for city, districts in districts.items():
+#         f.write(city + "\n")
+#         for district in districts:
+#             f.write(district + "\n")
+#         f.write("\n\n")
 
 #%% Get number of properties in each district
 df.groupby("district")["district"].count().sort_values(ascending=False)
