@@ -86,3 +86,7 @@ df[df['elevator'] == 1].groupby('city')['elevator'].count()
 sns.scatterplot(x='price', y='size', data=df)
 
 #%% How does the price change with the size
+
+#%% What is the minimum size for having a pool
+df[df['pool'] == 1].sort_values(by='size', ascending=True).head()
+# %%

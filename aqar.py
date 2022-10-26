@@ -41,6 +41,9 @@ df[df["city"] == "الرياض"]
 #%% Check for duplicates
 df[~df.duplicated()]
 
+#%% Remove duplicates
+df = df[~df.duplicated()]
+
 # Exploratory Data Analysis
 
 #%% Use the describe method to get the summary statistics of the data
