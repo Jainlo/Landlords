@@ -83,10 +83,27 @@ uniqueAge
 df[df['elevator'] == 1].groupby('city')['elevator'].count()
 
 #%% Plot the correlation between price and size
-sns.scatterplot(x='price', y='size', data=df)
+# sns.scatterplot(x='price', y='size', data=df)
 
 #%% How does the price change with the size
 
 #%% What is the minimum size for having a pool
 df[df['pool'] == 1].sort_values(by='size', ascending=True).head()
+# %% Get 5 most expensive properties
+df.sort_values(by='price', ascending=False).head()
+
+
+#%% Divide prices over 20,000 by 12
+df['price'] = np.where(df['price'] > 20000, df['price']/12, df['price'])
+# %%
+
+#%% Remove fronts that are equal to '3 شوارع'
+df = df[df['front'] != '3 شوارع']
+
+#%% Remove fronts that are equal to '4 شوارع'
+df = df[df['front'] != '4 شوارع']
+
+#%% Check unique values in front
+df['front'].unique()
+
 # %%

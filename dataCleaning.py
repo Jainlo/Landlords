@@ -4,14 +4,11 @@ import arabic_reshaper
 
 
 #%% Reading the data
-def clean():
-    df = pd.read_csv('SA_Aqar.csv')
-    # 1. Do we have missing data? yes
-    # In details column - 80 NAs
-    df.isnull().sum()
+def clean(df):
+
 
     # 2. Details column has missing data and is made up of unstructured data
-    # We can drop it 
+    # We can drop it
     df.drop('details', axis=1, inplace=True)
 
     # 3. Do we have any duplicates?
@@ -19,7 +16,15 @@ def clean():
     df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
     # Clean column names as well
     df.columns = df.columns.str.strip()
-    # Check for duplicates 
-    df[~df.duplicated()]# Check source and where did the duplication come from
+
     # Remove duplicates
     df = df[~df.duplicated()]
+
+    #%% Remove the rows that have the same value in price and size
+    df = df[df['price'] != df['size']]
+
+    #%% Remove fronts that are equal to '3 شوارع'
+    df = df[df['front'] != '3 شوارع']
+    
+    #%% Remove fronts that are equal to '4 شوارع'
+    df = df[df['front'] != '4 شوارع']
