@@ -31,3 +31,6 @@ def clean(df: pd.DataFrame):
 
     #%% Remove values with a size < 100
     df = df[df['size'] > 100]
+
+    #%% Divide prices over 20,000 by 12
+    df["price"] = np.where(df["price"] > 20000, df["price"] // 12, df["price"])

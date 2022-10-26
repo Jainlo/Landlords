@@ -110,7 +110,7 @@ df.sort_values(by="price", ascending=False).head()
 df.sort_values(by="size", ascending=False).head()
 
 #%% Divide prices over 20,000 by 12
-df["price"] = np.where(df["price"] > 20000, df["price"] / 12, df["price"])
+df["price"] = np.where(df["price"] > 20000, df["price"] // 12, df["price"])
 # %%
 
 #%% Remove fronts that are equal to '3 شوارع'
