@@ -1,5 +1,4 @@
 
-
 #%%
 import pandas as pd
 import numpy as np
@@ -15,7 +14,7 @@ from geopy.extra.rate_limiter import RateLimiter
 import folium
 from folium.plugins import FastMarkerCluster
 #%%
-df = pd.read_csv("SA_Aqar.csv")
+df = pd.read_csv('../Landlords/SA_Aqar.csv')
 df.info()
 #%% Check for missing values
 df.isnull().sum()

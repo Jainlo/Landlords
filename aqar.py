@@ -57,6 +57,9 @@ df.groupby('city')['price'].describe()
 #%%
 df.sample(5)
 
+#%% Count districts by city
+df.groupby('city')['district'].unique().apply(len)
+
 #%% Do we have outliers in the dataset?
 ry_prices = df[(df["city"] == "الرياض") & (df['district'])]
 sns.boxplot(ry_prices, x= "district", y= "price")
