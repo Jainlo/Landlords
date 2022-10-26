@@ -110,7 +110,7 @@ df.sort_values(by="price", ascending=False).head()
 df.sort_values(by="size", ascending=False).head()
 
 #%% Divide prices over 20,000 by 12
-df["price"] = np.where(df["price"] > 20000, df["price"] / 12, df["price"])
+df["price"] = np.where(df["price"] > 20000, df["price"] // 12, df["price"])
 # %%
 
 #%% Remove fronts that are equal to '3 شوارع'
@@ -150,13 +150,14 @@ df[(df['elevator'] == 1) & (df['stairs'] == 0)]
 # 25 properties
 
 #%% export list of unique values in district by city
-districts = df.groupby("city")["district"].unique()
-with open("districts.txt", "w") as f:
-    for city, districts in districts.items():
-        f.write(city + "\n")
-        for district in districts:
-            f.write(district + "\n")
-        f.write("\n\n")
+districts = df.groupby("city")["district"].value_counts()
+districts.to_csv("districts.csv")
+# with open("districts.txt", "w") as f:
+#     for city, districts in districts.items():
+#         f.write(city + "\n")
+#         for district in districts:
+#             f.write(district + "\n")
+#         f.write("\n\n")
 
 #%% Get number of properties in each district
 df.groupby("district")["district"].count().sort_values(ascending=False)
