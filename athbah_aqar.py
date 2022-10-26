@@ -82,9 +82,13 @@ kb_house.district.value_counts()
 #len(df[df.city=="الرياض"])/len(df)
 
 # %%
-#range of houes_size / district? 
-ry_size = df[(df["city"] == "الرياض") & (df['district'])]
-sns.boxplot(ry_size, x= "district", y= "size")
+#range of property_age / price? 
+#ry_size = df[(df["city"] == "الخبر") & (df['district'])]
+#sns.boxplot(ry_size, x= "district", y= "size")
+
+ry_size = df[(df["city"] == "الخبر") & (df['property_age'])]
+sns.boxplot(ry_size, x= "property_age", y= "price")
+
 
 # %%
 len(ry_house.loc[(ry_house['size'] <500)])
@@ -125,13 +129,18 @@ dammam.corr()
 khobar.corr()
 
 #%%
-# no. of houses 
-riyadh.elevator.value_counts()
+riyadh.district.value_counts()
 
 # %%
-jeddah.elevator.value_counts()
+arr = ["حي العارض","حي النرجس"]
 
-#%%
-dammam.elevator.value_counts()
-#%%
-khobar.elevator.value_counts()
+district = riyadh["district"]
+
+for i in district:
+    for j in arr:
+        if i == j:
+            print(True)
+
+# %%
+#riyadh["district"]
+# %%
