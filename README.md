@@ -6,7 +6,7 @@ This report will help officials from the Ministry of Housing understand the curr
 ## Main features discussed in our report
 - City: location of the house
 - Price: monthly rent
-- Front: which way is the house front; north, west, east and south
+- Front: which way is the house front; north, west, east, south, south-east, south-west, north-eat and north-west
 - Pool: whether the house has a pool or not
 ## Main questions
 - Which feature is more prominent in expensive real estate?
@@ -16,6 +16,8 @@ This report will help officials from the Ministry of Housing understand the curr
 ## Key conclusions
 - Real estate has higher prices in Jeddah compared to Riyadh, Dammam and Alkhobar (on the date of data collection)
 - The features that are more prominent in expensive real estate in order are:
-1. houes includes a driver's room
-2. house has a frontyard
-3. house has a garage
+    1. houes includes a driver's room
+    2. house has a frontyard
+    3. house has a garage
+- The most expensive front out of the for main directions is "East", while "North-east" is the most expensive overall
+- 
