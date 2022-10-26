@@ -5,11 +5,20 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import jinja2
 
+#%% import dataCleaning
+from dataCleaning import clean
+
 ### Read and clean data
 #%%
 # year of collection 2020
 df = pd.read_csv("SA_Aqar.csv")
+
+#%%
 df.info()
+
+
+#%%
+clean(df)
 
 #%% Check for duplicates
 df[~df.duplicated()]

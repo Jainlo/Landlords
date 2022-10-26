@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
-import arabic_reshaper
+# import arabic_reshaper
 
 
 #%% Reading the data
-def clean(df: pd.DataFrame):
+def clean(df: pd.DataFrame) -> pd.DataFrame:
 
 
     # 2. Details column has missing data and is made up of unstructured data
