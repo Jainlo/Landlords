@@ -6,12 +6,11 @@ import numpy as np
 #%% Reading the data
 def clean(df: pd.DataFrame):
 
-
-    # 2. Details column has missing data and is made up of unstructured data
-    # We can drop it
+    #%% 1. Details column has missing data and is made up of unstructured data
+    # We will drop it
     df.drop('details', axis=1, inplace=True)
 
-    # 3. Do we have any duplicates?
+    #%% 2. Do we have any duplicates?
     # First clean whitespace to be able to compare values
     df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
     # Clean column names as well
@@ -20,17 +19,21 @@ def clean(df: pd.DataFrame):
     # Remove duplicates
     df = df[~df.duplicated()]
 
-    #%% Remove the rows that have the same value in price and size
+    #%% 3. Remove the rows that have the same value in price and size
     df = df[df['price'] != df['size']]
 
-    #%% Remove fronts that are equal to '3 شوارع'
+    #%% 4. Remove fronts that are equal to '3 شوارع'
     df = df[df['front'] != '3 شوارع']
 
-    #%% Remove fronts that are equal to '4 شوارع'
+    #%% 5. Remove fronts that are equal to '4 شوارع'
     df = df[df['front'] != '4 شوارع']
 
-    #%% Remove values with a size < 100
+    #%% 6. Remove values with a size < 100
     df = df[df['size'] > 100]
 
-    #%% Divide prices over 20,000 by 12
-    df["price"] = np.where(df["price"] > 20000, df["price"] // 12, df["price"])
+    #%% 7. Price periods are not consistent, we made an assumption that they are monthly
+    # 7.1 Discard anything less than 2K
+    df = df[df['price'] > 2000] 
+
+    #%% 7.2 Anything beyond 20K is yearly and will be divided by 12
+    df['price'] = np.where(df['price'] > 20000, df['price']//12, df['price'])
