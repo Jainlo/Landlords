@@ -4,7 +4,7 @@ import numpy as np
 
 
 #%% Reading the data
-def clean(df: pd.DataFrame) -> pd.DataFrame:
+def clean(df: pd.DataFrame):
 
 
     # 2. Details column has missing data and is made up of unstructured data
