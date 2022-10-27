@@ -7,7 +7,13 @@ kernal: python3
 
 ## Introduction
 
-In this project we studied the real estate rental market of the four major cities in Saudi Arabia: Jeddah, Riyadh, Alkhobar and Dammam. We explored the relationships of prices with other features. The dataset used is found on kaggle <a href = "https://www.kaggle.com/datasets/lama122/saudi-arabia-real-estate-aqar">Saudi Arabia Real Estate (AQAR) dataset</a> It was collected and scrapped from <a href ="https://sa.aqar.fm">Aqar.fm</a>
+* In this project we studied the real estate rental market of the four major cities in Saudi Arabia: Jeddah, Riyadh, Alkhobar and Dammam. 
+* We explored the relationships of prices with other features from the Saudi Arabia Real Estate (AQAR) dataset that was collected and scrapped from Aqar.fm
+Main Features we focused on:
+  * City
+  * Price
+  * Front
+  * Pool
 
 ## Data Cleaning
 
@@ -33,4 +39,18 @@ We started by the format of our data and checking which columns had missing valu
 
     * Anything beyond 20K is yearly and will be divided by 12
 
-## EDA
+## Data Analysis
+
+Which city had the most expensive real estate? 
+
+## Data Analysis
+
+What was the more prominent in expensive real estate?
+
+## Data Analysis
+
+Is there a more expensive front?
+
+## Data Analysis
+
+Which cities tend to have more pools?

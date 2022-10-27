@@ -16,8 +16,11 @@ This report will help officials from the Ministry of Housing understand the curr
 ## Key conclusions
 - Real estate has higher prices in Jeddah compared to Riyadh, Dammam and Alkhobar (on the date of data collection)
 - The features that are more prominent in expensive real estate in order are:
-    1. houes includes a driver's room
+    1. house includes a driver's room
     2. house has a frontyard
     3. house has a garage
-- The most expensive front out of the for main directions is "East", while "North-east" is the most expensive overall
-- 
+- The most expensive front out of the 4 main directions is "East", while "North-east" is the most expensive overall
+
+To see the slideshow:
+<a href="https://jainlo.github.io//Landlords"></a>
+[Landlords-Slides](./presentation.qmd)

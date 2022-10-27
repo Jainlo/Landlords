@@ -6,8 +6,7 @@
 # rental period differs making it hard to compare prices => make an assumption
 # type of property is not included
 # divide districts by direction
-# set price range
-# whats the size unit
+# price range 2K - 80K monthly
 
 #%%
 from dataCleaning import clean
@@ -90,7 +89,7 @@ df.groupby("city").sum()
 
 # %%
 # Q1. Is there a preferred front?
-# Whats the most common front?
+# Whats the most common front? east is the most preferred
 data = [dict(
   type = 'scatter',
   x = df['front'],
@@ -116,7 +115,9 @@ pio.show(fig_dict, validate=False)
 #%% 
 # Q3. Is there a front that is more expensive?
 # Bar plot with x = front y = price
-# Explain the error bar (?)
+# Explain the error bar (std) : 
+# Its a graphical representations of the variability of data 
+# and used on graphs to indicate the error or uncertainty in a reported measurement.
 from bidi.algorithm import get_display
 
 def arabic_plot(labels: pd.Series):
@@ -140,7 +141,7 @@ plt.title(arabic_plot(pd.Series(" أسعار الأجار حسب الواجها�
 data = [dict(
   type = 'scatter',
   x = df['city'],
-  y = df['pool'].count(),
+  y = (df['pool'].count()/ len(df['pool'])), #not fair cause they dont all have the same total
   mode = 'markers',
   transforms = [dict(
     type = 'groupby',
