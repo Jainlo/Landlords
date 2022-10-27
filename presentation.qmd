@@ -42,15 +42,58 @@ We started by the format of our data and checking which columns had missing valu
 ## Data Analysis
 
 Which city had the most expensive real estate? 
+  ```{python}
+  df.groupby("city")["price"].mean()
+  ```
 
 ## Data Analysis
 
 What was the more prominent in expensive real estate?
+  ```{python}
+  data = [dict(
+  type = 'scatter',
+  x = df['front'],
+  y = df['front'].count(),
+  mode = 'markers',
+  transforms = [dict(
+    type = 'groupby',
+    groups = df['front'],
+  )]
+  )]
+  fig_dict = dict(data=data)
+  pio.show(fig_dict, validate=False)
+  ```
 
 ## Data Analysis
 
 Is there a more expensive front?
+  ```{python}
+  def arabic_plot(labels: pd.Series):
+    ArabicLabels = labels.apply(arabic_reshaper.reshape)
+    result = []
+    for label in ArabicLabels:
+        result.append(get_display(label))
+    if len(result) == 1:
+        return result[0]
+    else:
+        return result
+  sns.set_theme()
+  plt.subplots(figsize=(10,7))
+  sns.barplot(y="price", x=arabic_plot(df["front"]), data=df)
+  plt.ylabel(arabic_plot(pd.Series("الأسعار ")))
+  plt.xlabel(arabic_plot(pd.Series("الواجهات")))
+  plt.title(arabic_plot(pd.Series(" أسعار الأجار حسب الواجهات")))
+  ```
 
 ## Data Analysis
 
 Which cities tend to have more pools?
+
+## Conclusion
+
+* Real estate has higher prices in Jeddah compared to Riyadh, Dammam and Alkhobar (on the date of data collection)
+* The features that are more prominent in expensive real estate in order are:
+  * house includes a driver's room
+  * house has a frontyard
+  * house has a garage
+* The most expensive front out of the 4 main directions is "East", while "North-east" is the most expensive overall
