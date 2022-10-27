@@ -6,17 +6,14 @@ kernal: python3
 ---
 
 ## Introduction
-
 * In this project we studied the real estate rental market of the four major cities in Saudi Arabia: Jeddah, Riyadh, Alkhobar and Dammam. 
-* We explored the relationships of prices with other features from the Saudi Arabia Real Estate (AQAR) dataset that was collected and scrapped from Aqar.fm
-Main Features we focused on:
+* We explored the relationships of prices with other features that was collected and scrapped from Aqar.fm. Main Features we focused on:
   * City
   * Price
   * Front
   * Pool
 
 ## Data Cleaning
-
 We started by the format of our data and checking which columns had missing values.
 
   * We dropped the detail column because it was the only one with missing values
@@ -26,7 +23,7 @@ We started by the format of our data and checking which columns had missing valu
   * We trimmed the whitespace from all the column names and rows
 
   * We removed duplicate 2207 rows
-
+## Data Cleaning
   * Removed the rows that have the same value in price and size
 
   * Removed irrelevant values from the front columns
@@ -38,6 +35,12 @@ We started by the format of our data and checking which columns had missing valu
     * Discard anything less than 2K
 
     * Anything beyond 20K is yearly and will be divided by 12
+## Data Cleaning
+
+We used a seperate districts in dataset have been grouped into location class “north, south, west, east, or center”.
+This step was done manually by searching for every district in each city.
+
+The two datasets were combined using merge() function by checking “city” and “district” columns
 
 ## Data Analysis
 
@@ -97,3 +100,4 @@ Which cities tend to have more pools?
   * house has a frontyard
   * house has a garage
 * The most expensive front out of the 4 main directions is "East", while "North-east" is the most expensive overall
+
