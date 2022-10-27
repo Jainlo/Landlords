@@ -12,7 +12,7 @@ This report will help officials from the Ministry of Housing understand the curr
 - Which feature is more prominent in expensive real estate?
 - Is there a preferred front?
 - Is there a front that is more expensive?
-- Which cities tend to have more pools? Could there be a reason?
+- Which side of each city is considered more expensive?
 ## Key conclusions
 - Real estate has higher prices in Jeddah compared to Riyadh, Dammam and Alkhobar (on the date of data collection)
 - The features that are more prominent in expensive real estate in order are:
@@ -20,7 +20,9 @@ This report will help officials from the Ministry of Housing understand the curr
     2. house has a frontyard
     3. house has a garage
 - The most expensive front out of the 4 main directions is "East", while "North-east" is the most expensive overall
+- Expensive sides in each city:
+    1. Riyadh: North
+    2. Dammamd: East
+    3. Jeddah: North
+    4. Alkhobar: No clear distinction between sides
 
-To see the slideshow:
-<a href="https://jainlo.github.io//Landlords"></a>
-[Landlords-Slides](./presentation.qmd)
