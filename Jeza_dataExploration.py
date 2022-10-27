@@ -37,6 +37,8 @@ df = df[df['price'] > 2000]
 # 7.2 Anything beyond 20K is yearly and will be divided by 12
 df['price'] = np.where(df['price'] > 20000, df['price']//12, df['price'])
 
+#%%
+df.city.groupby("district").value_counts()
 #%% Plot the price mean per city
 mean_per_city = df.groupby("city")["price"].mean().reset_index()
 px.bar(mean_per_city, x="city", y="price", title="Mean price per city")
