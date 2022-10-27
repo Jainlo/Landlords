@@ -7,7 +7,7 @@ This report will help officials from the Ministry of Housing understand the curr
 - City: location of the house
 - Price: monthly rent
 - Front: which way is the house front; north, west, east, south, south-east, south-west, north-eat and north-west
-- Pool: whether the house has a pool or not
+- Districts: which district the house is located in
 ## Main questions
 - Which feature is more prominent in expensive real estate?
 - Is there a preferred front?
