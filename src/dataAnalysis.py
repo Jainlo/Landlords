@@ -66,18 +66,33 @@ create_report(df)
 
 #%% 
 # Only run this if you didnt run the dataCleaning file
-# Clean the prices 2K - 80K
-df = df[df['price'] > 2000] 
-df['price'] = np.where(df['price'] > 20000, df['price']//12, df['price'])
-df = df[df['price'] < 80000] 
-# The rest of cleaning
-df = df[df['size'] > 100]
-df = df[~df.duplicated()]
-df = df[df['price'] != df['size']]
-df = df[df['front'] != '3 شوارع']
-df = df[df['front'] != '4 شوارع']
+# Reading and clean the data
+df = pd.read_csv("SA_Aqar.csv")
+# clean(df)
+# 1. Details column has missing data and is made up of unstructured data
+# We will drop it
+df.drop('details', axis=1, inplace=True)
+
+# 2. Do we have any duplicates?
+# First clean whitespace to be able to compare values
 df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
+# Clean column names as well
 df.columns = df.columns.str.strip()
+# Remove duplicates
+df = df[~df.duplicated()]
+# 3. Remove the rows that have the same value in price and size
+df = df[df['price'] != df['size']]
+# 4. Remove fronts that are equal to '3 شوارع'
+df = df[df['front'] != '3 شوارع']
+# 5. Remove fronts that are equal to '4 شوارع'
+df = df[df['front'] != '4 شوارع']
+# 6. Remove values with a size < 100
+df = df[df['size'] > 100]
+# 7. Price periods are not consistent, we made an assumption that they are monthly
+# 7.1 Discard anything less than 2K
+df = df[df['price'] > 2000]
+# 7.2 Anything beyond 20K is yearly and will be divided by 12
+df['price'] = np.where(df['price'] > 20000, df['price']//12, df['price'])
 #%% 
 # Q1. Which feature is more prominent in expensive real estate?
 # City with the higest mean price 
@@ -94,6 +109,20 @@ data = [dict(
   type = 'scatter',
   x = df['front'],
   y = df['front'].count(),
+  mode = 'markers',
+  transforms = [dict(
+    type = 'groupby',
+    groups = df['front'],
+  )]
+)]
+fig_dict = dict(data=data)
+pio.show(fig_dict, validate=False)
+#%%
+#most expensive front
+data = [dict(
+  type = 'scatter',
+  x = df['front'],
+  y = df['price'],
   mode = 'markers',
   transforms = [dict(
     type = 'groupby',
@@ -136,12 +165,26 @@ plt.ylabel(arabic_plot(pd.Series("الأسعار ")))
 plt.xlabel(arabic_plot(pd.Series("الواجهات")))
 plt.title(arabic_plot(pd.Series(" أسعار الأجار حسب الواجهات")))
 
+
+
 #%%
 # Q4. Which cities tend to have more pools? Could there be a reason?
+y_pool = list(round(df.groupby('city')['pool'].count()/ len(df['pool']) * 100))
 data = [dict(
   type = 'scatter',
   x = df['city'],
-  y = (df['pool'].count()/ len(df['pool'])), #not fair cause they dont all have the same total
+  y = y_pool, #not fair cause they dont all have the same total
+  mode = 'markers',
+)]
+fig_dict = dict(data=data)
+pio.show(fig_dict, validate=False)
+
+# Q5. 
+# %%
+data = [dict(
+  type = 'scatter',
+  x = df['city'],
+  y = (df['pool'].count()/ len(df['pool']) * 100), #not fair cause they dont all have the same total
   mode = 'markers',
   transforms = [dict(
     type = 'groupby',
@@ -150,7 +193,3 @@ data = [dict(
 )]
 fig_dict = dict(data=data)
 pio.show(fig_dict, validate=False)
-
-# Q5. 
-# %%
-df.head()
