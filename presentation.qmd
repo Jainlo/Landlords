@@ -5,8 +5,48 @@ format: revealjs
 kernal: python3
 ---
 
+```{python}
+from statistics import mean
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+import plotly.io as pio
+from dataCleaning import clean
+
+# Reading and clean the data
+df = pd.read_csv("SA_Aqar.csv")
+# clean(df)
+# 1. Details column has missing data and is made up of unstructured data
+# We will drop it
+df.drop('details', axis=1, inplace=True)
+
+# 2. Do we have any duplicates?
+# First clean whitespace to be able to compare values
+df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
+# Clean column names as well
+df.columns = df.columns.str.strip()
+# Remove duplicates
+df = df[~df.duplicated()]
+# 3. Remove the rows that have the same value in price and size
+df = df[df['price'] != df['size']]
+# 4. Remove fronts that are equal to '3 شوارع'
+df = df[df['front'] != '3 شوارع']
+# 5. Remove fronts that are equal to '4 شوارع'
+df = df[df['front'] != '4 شوارع']
+# 6. Remove values with a size < 100
+df = df[df['size'] > 100]
+# 7. Price periods are not consistent, we made an assumption that they are monthly
+# 7.1 Discard anything less than 2K
+df = df[df['price'] > 2000]
+# 7.2 Anything beyond 20K is yearly and will be divided by 12
+df['price'] = np.where(df['price'] > 20000, df['price']//12, df['price'])
+```
+
+
 ## Introduction
-* In this project we studied the real estate rental market of the four major cities in Saudi Arabia: Jeddah, Riyadh, Alkhobar and Dammam. 
+* In this project we studied the real estate rental market of the four major cities in Saudi Arabia: Jeddah, Riyadh, Alkhobar and Dammam.
 * We explored the relationships of prices with other features that was collected and scrapped from Aqar.fm. Main Features we focused on:
   * City
   * Price
@@ -14,7 +54,7 @@ kernal: python3
   * Pool
 
 ## Data Cleaning
-We started by the format of our data and checking which columns had missing values.
+We started by looking at the format of our data and checking which columns had missing values.
 
   * We dropped the detail column because it was the only one with missing values
 
@@ -22,10 +62,11 @@ We started by the format of our data and checking which columns had missing valu
 
   * We trimmed the whitespace from all the column names and rows
 
-  * We removed duplicate 2207 rows
-## Data Cleaning
+  * We removed 2207 duplicate rows
+
   * Removed the rows that have the same value in price and size
 
+## Data Cleaning
   * Removed irrelevant values from the front columns
 
   * Remove values with a size < 100
@@ -35,6 +76,7 @@ We started by the format of our data and checking which columns had missing valu
     * Discard anything less than 2K
 
     * Anything beyond 20K is yearly and will be divided by 12
+
 ## Data Cleaning
 
 We used a seperate districts in dataset have been grouped into location class “north, south, west, east, or center”.
@@ -44,14 +86,17 @@ The two datasets were combined using merge() function by checking “city” and
 
 ## Data Analysis
 
-Which city had the most expensive real estate? 
+Which city has the most expensive real estate?
   ```{python}
-  df.groupby("city")["price"].mean()
+#| echo: false
+  mean_city = df.groupby("city")\
+    .agg({"price": "mean"}).reset_index()
+  px.bar(mean_city, x="city", y="price", title="Mean price per city")
   ```
 
 ## Data Analysis
 
-What was the more prominent in expensive real estate?
+What was the more prominent feature in expensive real estate?
   ```{python}
   data = [dict(
   type = 'scatter',
@@ -70,27 +115,15 @@ What was the more prominent in expensive real estate?
 ## Data Analysis
 
 Is there a more expensive front?
-  ```{python}
-  def arabic_plot(labels: pd.Series):
-    ArabicLabels = labels.apply(arabic_reshaper.reshape)
-    result = []
-    for label in ArabicLabels:
-        result.append(get_display(label))
-    if len(result) == 1:
-        return result[0]
-    else:
-        return result
-  sns.set_theme()
-  plt.subplots(figsize=(10,7))
-  sns.barplot(y="price", x=arabic_plot(df["front"]), data=df)
-  plt.ylabel(arabic_plot(pd.Series("الأسعار ")))
-  plt.xlabel(arabic_plot(pd.Series("الواجهات")))
-  plt.title(arabic_plot(pd.Series(" أسعار الأجار حسب الواجهات")))
-  ```
+
 
 ## Data Analysis
 
 Which cities tend to have more pools?
+```{python}
+df[df["pool"] == 1].groupby("city")["pool"].count().sort_values(ascending=False)
+px.bar(df[df["pool"] == 1].groupby("city")["pool"].count().sort_values(ascending=False))
+```
 
 ## Conclusion
 

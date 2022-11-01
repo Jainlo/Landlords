@@ -162,4 +162,6 @@ districts.to_csv("districts.csv")
 #%% Get number of properties in each district
 df.groupby("district")["district"].count().sort_values(ascending=False)
 
-# %%
+#%% Which city has the most pools
+df[df["pool"] == 1].groupby("city")["pool"].count().sort_values(ascending=False)
+px.bar(df[df["pool"] == 1].groupby("city")["pool"].count().sort_values(ascending=False))
